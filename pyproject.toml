@@ -1,0 +1,54 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "oslo-pkg-resources"
+version = "81.0.0"
+description = "Standalone redistribution of pkg_resources, removed from setuptools v82."
+readme = "README.rst"
+license = "MIT"
+requires-python = ">=3.9"
+authors = [
+    { name = "Python Packaging Authority" },
+]
+keywords = ["pkg_resources", "setuptools", "packaging"]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Topic :: Software Development :: Libraries",
+]
+dependencies = [
+    "packaging >= 24.2",
+    "platformdirs >= 4.2.2",
+    "jaraco.text >= 3.7",
+    "more-itertools >= 8.8",
+    "importlib-metadata >= 6; python_version < '3.10'",
+    "tomli >= 2.0.1; python_version < '3.11'",
+]
+
+[project.urls]
+Homepage = "https://github.com/smooney/oslo-pkg-resources"
+
+[project.optional-dependencies]
+test = [
+    "pytest",
+    "packaging",
+]
+docs = [
+    "sphinx",
+    "furo",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["pkg_resources"]
+exclude = ["pkg_resources/tests"]
+
+[tool.hatch.build.targets.sdist]
+exclude = ["ref"]
+
+[tool.pytest.ini_options]
+filterwarnings = [
+    "ignore::DeprecationWarning:pkg_resources.*",
+    "ignore::DeprecationWarning:importlib.*",
+]

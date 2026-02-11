@@ -66,10 +66,6 @@ from typing import (
     overload,
 )
 
-sys.path.extend(((vendor_path := os.path.join(os.path.dirname(os.path.dirname(__file__)), 'setuptools', '_vendor')) not in sys.path) * [vendor_path])  # fmt: skip
-# workaround for #4476
-sys.modules.pop('backports', None)
-
 # capture these to bypass sandboxing
 from os import open as os_open, utime  # isort: skip
 from os.path import isdir, split  # isort: skip
@@ -96,12 +92,12 @@ if TYPE_CHECKING:
     from typing_extensions import Self, TypeAlias
 
 warnings.warn(
-    "pkg_resources is deprecated as an API. "
-    "See https://setuptools.pypa.io/en/latest/pkg_resources.html. "
-    "The pkg_resources package is slated for removal as early as "
-    "2025-11-30. Refrain from using this package or pin to "
-    "Setuptools<81.",
-    UserWarning,
+    "pkg_resources was removed from setuptools in v82.0.0. "
+    "You are using a standalone redistribution 'oslo-pkg-resources'. "
+    "Consider migrating to importlib.resources, importlib.metadata, "
+    "and the packaging library. "
+    "See https://setuptools.pypa.io/en/latest/pkg_resources.html",
+    DeprecationWarning,
     stacklevel=2,
 )
 
@@ -3608,13 +3604,12 @@ class PkgResourcesDeprecationWarning(Warning):
     """
 
 
-# Ported from ``setuptools`` to avoid introducing an import inter-dependency:
 _LOCALE_ENCODING = "locale" if sys.version_info >= (3, 10) else None
 
 
-# This must go before calls to `_call_aside`. See https://github.com/pypa/setuptools/pull/4422
+# This must go before calls to `_call_aside`.
 def _read_utf8_with_fallback(file: str, fallback_encoding=_LOCALE_ENCODING) -> str:
-    """See setuptools.unicode_utils._read_utf8_with_fallback"""
+    """Read a file as UTF-8, falling back to locale encoding on failure."""
     try:
         with open(file, "r", encoding="utf-8") as f:
             return f.read()
@@ -3624,18 +3619,11 @@ def _read_utf8_with_fallback(file: str, fallback_encoding=_LOCALE_ENCODING) -> s
         `encoding="utf-8"` fails with {file!r}, trying `encoding={fallback_encoding!r}`.
 
         This fallback behaviour is considered **deprecated** and future versions of
-        `setuptools/pkg_resources` may not implement it.
+        `pkg_resources` may not implement it.
 
         Please encode {file!r} with "utf-8" to ensure future builds will succeed.
-
-        If this file was produced by `setuptools` itself, cleaning up the cached files
-        and re-building/re-installing the package with a newer version of `setuptools`
-        (e.g. by updating `build-system.requires` in its `pyproject.toml`)
-        might solve the problem.
         ********************************************************************************
         """
-        # TODO: Add a deadline?
-        #       See comment in setuptools.unicode_utils._Utf8EncodingNeeded
         warnings.warn(msg, PkgResourcesDeprecationWarning, stacklevel=2)
         with open(file, "r", encoding=fallback_encoding) as f:
             return f.read()

@@ -2,13 +2,17 @@
 Package Discovery and Resource Access using ``pkg_resources``
 =============================================================
 
-The ``pkg_resources`` module distributed with ``setuptools`` provides an API
-for Python libraries to access their resource files, and for extensible
-applications and frameworks to automatically discover plugins.  It also
-provides runtime support for using C extensions that are inside zipfile-format
-eggs, support for merging packages that have separately-distributed modules or
-subpackages, and APIs for managing Python's current "working set" of active
-packages.
+The ``pkg_resources`` module provides an API for Python libraries to access
+their resource files, and for extensible applications and frameworks to
+automatically discover plugins.  It also provides runtime support for using C
+extensions that are inside zipfile-format eggs, support for merging packages
+that have separately-distributed modules or subpackages, and APIs for managing
+Python's current "working set" of active packages.
+
+.. note::
+   This is a standalone redistribution of ``pkg_resources`` as the
+   ``oslo-pkg-resources`` package. The module was removed from ``setuptools``
+   in v82.0.0.
 
 .. attention::
    Use of ``pkg_resources`` is deprecated in favor of
@@ -16,8 +20,7 @@ packages.
    and their backports (:pypi:`importlib_resources`, :pypi:`importlib_metadata`).
    Some useful APIs are also provided by :pypi:`packaging` (e.g. requirements
    and version parsing).
-   Users should refrain from new usage of ``pkg_resources`` and
-   should work to port to importlib-based solutions.
+   Users should work to port to importlib-based solutions.
 
 
 --------

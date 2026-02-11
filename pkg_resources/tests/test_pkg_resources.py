@@ -17,8 +17,13 @@ import pytest
 import pkg_resources
 from pkg_resources import DistInfoDistribution, Distribution, EggInfoDistribution
 
-import distutils.command.install_egg_info
-import distutils.dist
+try:
+    import distutils.command.install_egg_info
+    import distutils.dist
+
+    _HAS_DISTUTILS = True
+except ImportError:
+    _HAS_DISTUTILS = False
 
 
 class EggRemover(str):
@@ -334,6 +339,7 @@ def test_macos_vers_fallback(monkeypatch, tmp_path):
     m.assert_called()
 
 
+@pytest.mark.skipif(not _HAS_DISTUTILS, reason="distutils not available")
 class TestDeepVersionLookupDistutils:
     @pytest.fixture
     def env(self, tmpdir):
