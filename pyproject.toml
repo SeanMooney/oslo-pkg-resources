@@ -47,9 +47,6 @@ exclude = ["pkg_resources/tests"]
 [tool.hatch.build.targets.sdist]
 exclude = ["doc/build"]
 
-[tool.ruff.format]
-exclude = ["pkg_resources/**"]
-
 [tool.pytest.ini_options]
 filterwarnings = [
     "ignore::DeprecationWarning:pkg_resources.*",
