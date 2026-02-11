@@ -17,8 +17,8 @@ Python's current "working set" of active packages.
 .. attention::
    Use of ``pkg_resources`` is deprecated in favor of
    :mod:`importlib.resources`, :mod:`importlib.metadata`
-   and their backports (:pypi:`importlib_resources`, :pypi:`importlib_metadata`).
-   Some useful APIs are also provided by :pypi:`packaging` (e.g. requirements
+   and their backports (`importlib_resources <https://pypi.org/project/importlib-resources/>`_, `importlib_metadata <https://pypi.org/project/importlib-metadata/>`_).
+   Some useful APIs are also provided by `packaging <https://pypi.org/project/packaging/>`_ (e.g. requirements
    and version parsing).
    Users should work to port to importlib-based solutions.
 
@@ -153,7 +153,7 @@ package for the Python Enterprise Application Kit.
 
 To create a namespace package, you list it in the ``namespace_packages``
 argument to ``setup()``, in your project's ``setup.py``.  (See the
-:ref:`setuptools documentation on namespace packages <Namespace Packages>` for
+`setuptools documentation on namespace packages <https://setuptools.pypa.io/en/latest/userguide/package_discovery.html#namespace-packages>`_ for
 more information on this.)  Also, you must add a ``declare_namespace()`` call
 in the package's ``__init__.py`` file(s):
 
@@ -712,7 +712,7 @@ entry point group and look for entry points named "pre_process" and
 To advertise an entry point, a project needs to use ``setuptools`` and provide
 an ``entry_points`` argument to ``setup()`` in its setup script, so that the
 entry points will be included in the distribution's metadata.  For more
-details, see :ref:`Advertising Behavior<dynamic discovery of services and plugins>`.
+details, see `Advertising Behavior <https://setuptools.pypa.io/en/latest/userguide/entry_point.html>`_.
 
 Each project distribution can advertise at most one entry point of a given
 name within the same entry point group.  For example, a distutils extension

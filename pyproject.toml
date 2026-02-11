@@ -10,7 +10,7 @@ readme = "README.rst"
 license = "MIT"
 requires-python = ">=3.9"
 authors = [
-    { name = "Python Packaging Authority" },
+    { name = "OpenStack" },
 ]
 keywords = ["pkg_resources", "setuptools", "packaging"]
 classifiers = [
@@ -28,14 +28,14 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/smooney/oslo-pkg-resources"
+Homepage = "https://github.com/SeanMooney/oslo-pkg-resources"
 
 [project.optional-dependencies]
 test = [
     "pytest",
     "packaging",
 ]
-docs = [
+doc = [
     "sphinx",
     "furo",
 ]
@@ -45,7 +45,10 @@ packages = ["pkg_resources"]
 exclude = ["pkg_resources/tests"]
 
 [tool.hatch.build.targets.sdist]
-exclude = ["ref"]
+exclude = ["doc/build"]
+
+[tool.ruff.format]
+exclude = ["pkg_resources/**"]
 
 [tool.pytest.ini_options]
 filterwarnings = [
